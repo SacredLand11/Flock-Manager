@@ -24,6 +24,7 @@ public class FlockManager : MonoBehaviour //That script must be integrated into 
         {
             Vector3 pos = objectRoute();
             allObjects[i] = (GameObject)Instantiate(objectPrefab, pos, Quaternion.identity);
+            allObjects[i].GetComponent<Flock>().myManager = this; //After creating the Flock script, the manage system of object is defined.
         }
     }
 
