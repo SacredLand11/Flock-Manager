@@ -1,0 +1,34 @@
+//Describe a random route for objects (such as birds or fishes that move randomly)
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FlockManager : MonoBehaviour //That script must be integrated into a empty gameobject (not a prefab). Then, you can select your target into the "objectPrefab".
+{
+    public GameObject objectPrefab;
+    public int numOfObjects;
+    public GameObject[] allObjects;
+    public Vector3 routeLimits = new Vector3(5, 5, 5);
+
+    [Header("Object Settings")]
+    [Range(0.0f, 5.0f)]
+    public float minSpeed;
+    [Range(0.0f, 5.0f)]
+    public float maxSpeed;
+
+    private void Start()
+    {
+        allObjects = new GameObject[numOfObjects];
+        for (int i = 0; i < numOfObjects; i++)
+        {
+            Vector3 pos = objectRoute();
+            allObjects[i] = (GameObject)Instantiate(objectPrefab, pos, Quaternion.identity);
+        }
+    }
+
+    private Vector3 objectRoute()
+    {
+        return this.transform.position + new Vector3(Random.Range(-routeLimits.x, routeLimits.x), Random.Range(-routeLimits.y, routeLimits.y), Random.Range(-routeLimits.z, routeLimits.z));
+    }
+}
